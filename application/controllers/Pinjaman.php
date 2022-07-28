@@ -1,4 +1,10 @@
-<?php class Pinjaman extends CI_Controller
+<?php
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+class Pinjaman extends CI_Controller
+
 {
     function __construct()
     {
@@ -22,6 +28,69 @@
         $data['datas'] = $this->Model_pinjaman->cetakpinjamand($p1, $p2);
         $this->load->view('backend/pinjaman/cetak', $data);
     }
+
+    public function cetak_excel()
+    {       
+        // get post
+        $k1 = $this->input->post('k1');
+        $k2 = $this->input->post('k2');
+        $data = $this->Model_pinjaman->cetakpinjamand($k1, $k2);
+        // var_dump($data);
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getProperties()->setCreator('SIT')
+            ->setLastModifiedBy('SIT')
+            ->setTitle("SIT Pinjaman]")
+            ->setSubject("SIT Pinjaman]")
+            ->setDescription("Format untuk import Pinjaman di SIT pada]")
+            ->setKeywords('Pinjaman php SIT')
+            ->setCategory('Pinjaman');
+
+        $spreadsheet->setActiveSheetIndex(0);
+        $spreadsheet->getActiveSheet()
+
+            ->setCellValue('A1', 'NO')
+            ->setCellValue('B1', 'WAKTU')
+            ->setCellValue('C1', 'NAMA')
+            ->setCellValue('D1', 'KETERANGAN ANGGOTA')
+            ->setCellValue('E1', 'JUMLAH PINJAM')
+            ->setCellValue('F1', 'JUMLAH BAYAR')
+            ->setCellValue('G1', 'KETERANGAN');
+
+        if ($data) {
+            $i = 2;
+            foreach ($data as $r) {
+                if ($r->kode == "1") {
+                    $pinjam = number_format($r->jumlah_pinjam, 0, ",", ".");
+                    $bayar = '';
+                } else {
+                    $bayar = number_format($r->jumlah_bayar, 0, ",", ".");
+                    $pinjam = '';
+                }
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A' . $i, $i - 1)
+                    ->setCellValue('B' . $i, substr($r->waktu, 0, 10))
+                    ->setCellValue('C' . $i, $r->nama)
+                    ->setCellValue('D' . $i, $r->level)
+                    ->setCellValue('E' . $i, $pinjam)
+                    ->setCellValue('F' . $i, $bayar)
+                    ->setCellValue('G' . $i, $r->keterangan);
+
+                $i++;
+            }
+
+        }
+        $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
+
+        ob_clean();
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . urlencode('Laporan.xlsx') . '"');
+        $writer->save('php://output');
+        exit();
+    }
     public function tambah()
     {
         $data['title'] = ' | Tambah Data pinjaman  ';
@@ -41,8 +110,8 @@
     public function save_pinjaman()
     {
         // get post
-       
-        
+
+
         $this->form_validation->set_message('pesan', 'Kolom {field] Harus Diisi.!');
         $this->form_validation->set_rules('id_user', 'pinjaman', 'trim');
         $this->form_validation->set_rules('waktu', 'Keterangan', 'trim|required');

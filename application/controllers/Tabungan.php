@@ -3,6 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+
 class Tabungan extends CI_Controller
 {
     function __construct()
@@ -21,15 +22,68 @@ class Tabungan extends CI_Controller
     }
     function cetak_excel()
     {
+        // get post
+        $k1 = $this->input->post('k1');
+        $k2 = $this->input->post('k2');
+        $data = $this->Model_tabungan->cetaktabungand($k1, $k2);
+       
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
+        $spreadsheet->getProperties()->setCreator('SIT')
+            ->setLastModifiedBy('SIT')
+            ->setTitle("SIT Tabungan]")
+            ->setSubject("SIT Tabungan]")
+            ->setDescription("Format untuk import Tabungan di SIT pada]")
+            ->setKeywords('Tabungan php SIT')
+            ->setCategory('Tabungan');
+
+        $spreadsheet->setActiveSheetIndex(0);
+        $spreadsheet->getActiveSheet()
+    
+            ->setCellValue('A1', 'NO')
+            ->setCellValue('B1', 'PERIODE')
+            ->setCellValue('C1', 'WAKTU')
+            ->setCellValue('D1', 'NAMA')
+            ->setCellValue('E1', 'JENISANGGOTA')
+            ->setCellValue('F1', 'DEBIT')
+            ->setCellValue('G1', 'CREDIT')
+            ->setCellValue('H1', 'KETERANGAN');
+
+            if($data){
+                $i = 2;
+                foreach ($data as $r) {
+                if ($r->jumlah_nabung == 0) {
+                    $debet = "";
+                } else {
+                    $debet = number_format($r->jumlah_nabung, 0, ",", ".");
+                }
+                if ($r->jumlah_ambil == 0) {
+                    $kredit = "";
+                } else {
+                    $kredit = number_format($r->jumlah_ambil, 0, ",", ".");
+                }
+                    $spreadsheet->getActiveSheet()
+                        ->setCellValue('A' . $i, $i - 1)
+                        ->setCellValue('B' . $i, $r->tahun_akademik)
+                        ->setCellValue('C' . $i, substr($r->waktu, 0, 10))
+                        ->setCellValue('D' . $i, $r->nama)
+                        ->setCellValue('E' . $i, $r->level)
+                        ->setCellValue('F' . $i, $kredit)
+                        ->setCellValue('G' . $i, $debet)
+                        ->setCellvalue('H' . $i, $r->keterangan);
+                        
+                    $i++;
+                }
+            }
+        $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
+
+        ob_clean();
         $writer = new Xlsx($spreadsheet);
-        $filename = 'simple';
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
-        header('Cache-Control: max-age=0');
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . urlencode('Laporan.xlsx') . '"');
         $writer->save('php://output');
+        exit();
     }
     public function cetaktabungan()
     {

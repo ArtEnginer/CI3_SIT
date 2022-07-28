@@ -10,16 +10,9 @@
               <h5 class="card-title">Form Registrasi Data Identitas </h5>
               <!-- <form class="" > -->
               <div class="col-md-6"><?php echo $this->session->flashdata('pesan'); ?></div>
-
               <!-- isi form -->
-
               <?php echo form_open_multipart('login/save_akundata'); ?>
-
-
-
-
               <div class="form-group row">
-
                 <div class="col-sm-3 mb-3 mb-sm-0">
                   <input type="text" name="nama" class="form-control form-control-user" id="nama_lengkap" placeholder="Nama Lengkap Pendaftar..." required>
                 </div>

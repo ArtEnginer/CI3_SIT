@@ -19,7 +19,11 @@
         <meta content="This is an example dashboard created using build-in elements and components." name="description">
         <meta content="no" name="msapplication-tap-highlight">
         <link href="<?php echo base_url('assets/arc/main.css'); ?>" rel="stylesheet">
-        
+        <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
     </head>
 
     <body>

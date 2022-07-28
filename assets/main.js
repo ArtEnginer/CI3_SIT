@@ -42,3 +42,8 @@ function isNumberKey(evt) {
 		return;
 	}
 }
+
+// datatables
+$(document).ready(function() {
+	$("#mytable").DataTable();
+} );
