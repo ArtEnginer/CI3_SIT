@@ -4,7 +4,10 @@
         {
             $this->db->select('*, tb_users.nama, tb_periode.tahun_akademik');
             $this->db->join('tb_users', 'tb_users.id_user = tb_tabungan.id_user', 'left');
+            // join kelas
+            $this->db->join('tb_kelas', 'tb_kelas.id_kelas = tb_users.id_kelas', 'left');
             $this->db->join('tb_periode', 'tb_periode.id_periode = tb_tabungan.id_periode', 'left');
+            
             return $this->db->get('tb_tabungan')->result();
         }
         public function cetaktabungand($p1, $p2)

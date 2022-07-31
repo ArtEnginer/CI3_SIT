@@ -64,6 +64,7 @@
                                         <th style="font-size:12px">WAKTU</th>
                                         <th style="font-size:12px">NO. REKENING</th>
                                         <th style="font-size:12px">NAMA</th>
+                                        <th style="font-size:12px">KELAS</th>
                                         <th style="font-size:12px">ANGGOTA</th>
                                         <th style="font-size:12px">DEBET</th>
                                         <th style="font-size:12px">KREDIT</th><?php if ($this->session->userdata('level') == "admin") : ?><th style="font-size:12px">ACTION</th><?php endif  ?>
@@ -75,6 +76,7 @@
                                             <td style="font-size:12px"><?php echo substr($r->waktu, 0, 10); ?></td>
                                             <td style="font-size:12px"><?php echo $r->norek; ?></td>
                                             <td style="font-size:12px"><?php echo $r->nama; ?></td>
+                                            <td style="font-size:12px"><?php echo $r->kelas; ?></td>
                                             <td style="font-size:12px"><?php echo $r->level; ?></td>
                                             <td style="font-size:12px" class="text-right"><?php echo ($r->jumlah_nabung == 0) ? "" : number_format($r->jumlah_nabung, 0, ",", "."); ?></td>
                                             <td style="font-size:12px" class="text-right"><?php echo ($r->jumlah_ambil == 0) ? "" : number_format($r->jumlah_ambil, 0, ",", "."); ?></td><?php if ($this->session->userdata('level') == "admin") : ?><td style="font-size:12px" class="text-center"><a href="<?php echo base_url('tabungan/edit/' . $r->id_tabungan); ?>"><i class="fa fa-pen" title="Edit Data Anggota"></i></a> | <a href="<?php echo base_url('tabungan/hapus/' . $r->id_tabungan); ?>" onclick='return confirm("Apakah anda ingin menghapus data Anggota")'><i class="fa fa-trash" title="Hapus Data Anggota"></i></a> | <a href="<?php echo base_url('tabungan/detail/' . $r->id_tabungan); ?>"><i class="fa fa-eye" title="Detail Data Anggota"></i></a></td><?php endif  ?>
