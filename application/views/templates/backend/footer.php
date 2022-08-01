@@ -3,7 +3,7 @@
         <div class="app-footer__inner bg-tempting-azure">
             <div class="app-footer-left">
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);"><b style="color:#000">SISTEM TABUNGAN SEKOLAH || SITAS ©<?php echo date('Y') . ' UPDATE : ' . $this->config->item('update'); ?></b></a></li>
+                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);"><b style="color:#000">BANK CEMERLAN ©<?php echo date('Y') . ' UPDATE : ' . $this->config->item('update'); ?></b></a></li>
                 </ul>
             </div>
         </div>

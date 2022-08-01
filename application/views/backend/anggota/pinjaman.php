@@ -1,7 +1,12 @@
+<?php $ses = $this->session->userdata('id_user'); ?>
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="col-lg-4"><?php echo $this->session->flashdata('pesan'); ?></div>
-        <h5>Data Pinjaman <a class="btn btn-primary btn-sm" href="<?= base_url('anggota/rekappinjaman') ?>"><i class="fa fa-print"></i> Cetak Rekap</a></h5>
+
+
+        <h5>Data Tabungan <a class="btn btn-primary btn-sm" href="<?= base_url('anggota/rekappinjaman') ?>"><i class="fa fa-print"></i> Cetak Rekap</a> <a class="btn btn-primary btn-sm" href="<?= base_url('excelpinjaman?id=' . $ses) ?>"><i class="fa fa-download"></i> Export XLS</a></h5>
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card main-card mb-3">
@@ -71,7 +76,7 @@
                                     <td width="30%">Saldo Akhir Piutang</td>
                                     <td width="2%">:</td>
                                     <td style="border-top:1px solid #000" class="text-right">Rp. <?php $total = $pinjams - $bayars;
-                                                                                                echo number_format($total, 0, ",", "."); ?></td>
+                                                                                                    echo number_format($total, 0, ",", "."); ?></td>
                                     <td width="48%"></td>
                                 </tr>
                             </table>

@@ -30,7 +30,7 @@
         <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
             <div class="app-header bg-tempting-azure header-shadow">
                 <div class="app-header__logo">
-                    <div style="font-size:20px"><b>SITAS</b></div>
+                    <div style="font-size:20px"><b>BANK CEMERLAN</b></div>
                     <div class="header__pane ml-auto">
                         <div><button class="hamburger hamburger--elastic close-sidebar-btn" type="button" data-class="closed-sidebar"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button></div>
                     </div>
