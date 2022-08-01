@@ -13,16 +13,16 @@
               <!-- isi form -->
               <?php echo form_open_multipart('login/save_akundata'); ?>
               <div class="form-group row">
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <input type="text" name="nama" class="form-control form-control-user" id="nama_lengkap" placeholder="Nama Lengkap Pendaftar..." required>
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <textarea name="alamat" placeholder="Alamat..." class="form-control"></textarea>
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <input type="number" name="telepon" class="form-control" placeholder="No. Telepon...">
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <!-- <label>Jenis Kelamin</label><br> -->
                   <select name="jk" class="form-control">
                     <option>-- Jenis Kelamin --</option>
@@ -38,7 +38,7 @@
               </div>
               <div class="form-group row">
 
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <?php $jurusan = $this->db->get('tb_jurusan')->result(); ?>
                   <select name="id_jurusan" class="form-control">
                     <option>JURUSAN</option>
@@ -48,7 +48,7 @@
                   </select>
                 </div>
 
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
 
                   <?php $kelas = $this->db->get('tb_kelas')->result(); ?>
                   <select name="id_kelas" class="form-control">
@@ -58,10 +58,10 @@
                     <?php endforeach ?>
                   </select>
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" placeholder="Username Pendaftar..." required>
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password Pendaftar..." required>
                 </div>
 
@@ -76,11 +76,11 @@
 
 
               <div class="form-group row">
-                <div class="col-sm-4 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <label>No. Rekening</label>
                   <input type="text" name="norek" class="form-control" placeholder="Nomor Rekening Tabungan..." required>
                 </div>
-                <div class="col-sm-3 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <label>Pilih Status Daftar</label><br>
                   <select name="level" class="form-control">
                     <option>-- Mendaftar Sebagai : --</option>
@@ -90,18 +90,18 @@
                 </div>
 
 
-                <div class="col-sm-4 mb-3 mb-sm-0">
+                <div class="col-12 mb-3 mb-1">
                   <label>Foto : Ukuran 3 x 4 .jpeg / .png / .jpg</label>
                   <input type="file" name="foto" class="form-control" required>
                 </div>
               </div>
               <!-- <div class="form-group row"> -->
-              <!-- <div class="col-sm-6">
+              <!-- <div class="col-12">
                     <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                   </div> -->
               <!-- </div> -->
-              <a href="<?php echo base_url('login'); ?>" class="btn btn-warning btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
-              <button type="submit" class="btn btn-primary btn-sm">Simpa Data</button>
+              <a href="<?php echo base_url('login'); ?>" class="btn btn-warning btn-12<i class="fas fa-arrow-left"></i> Kembali</a>
+              <button type="submit" class="btn btn-primary btn-12Simpa Data</button>
 
               <?php echo form_close(); ?>
 

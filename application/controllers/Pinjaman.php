@@ -35,7 +35,9 @@ class Pinjaman extends CI_Controller
         $k1 = $this->input->post('k1');
         $k2 = $this->input->post('k2');
         $data = $this->Model_pinjaman->cetakpinjamand($k1, $k2);
+
         // var_dump($data);
+        // die();
 
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()->setCreator('SIT')
@@ -52,10 +54,10 @@ class Pinjaman extends CI_Controller
             ->setCellValue('A1', 'NO')
             ->setCellValue('B1', 'WAKTU')
             ->setCellValue('C1', 'NAMA')
-            ->setCellValue('D1', 'KETERANGAN ANGGOTA')
+            ->setCellValue('D1', 'KELAS')
             ->setCellValue('E1', 'JUMLAH PINJAM')
             ->setCellValue('F1', 'JUMLAH BAYAR')
-            ->setCellValue('G1', 'KETERANGAN');
+            ->setCellValue('G1', 'KEANGGOTAAN');
 
         if ($data) {
             $i = 2;
@@ -71,19 +73,19 @@ class Pinjaman extends CI_Controller
                     ->setCellValue('A' . $i, $i - 1)
                     ->setCellValue('B' . $i, substr($r->waktu, 0, 10))
                     ->setCellValue('C' . $i, $r->nama)
-                    ->setCellValue('D' . $i, $r->level)
+                    ->setCellValue('D' . $i, $r->kelas)
                     ->setCellValue('E' . $i, $pinjam)
                     ->setCellValue('F' . $i, $bayar)
-                    ->setCellValue('G' . $i, $r->keterangan);
+                    ->setCellValue('G' . $i, $r->level);
 
                 $i++;
             }
 
         }
-        $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+        $spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
         $spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
 
-        ob_clean();
+        // ob_clean();
         $writer = new Xlsx($spreadsheet);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

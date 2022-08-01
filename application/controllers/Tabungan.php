@@ -10,6 +10,7 @@ class Tabungan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Model_tabungan');
+        $this->load->model('Model_pinjaman');
     }
     public function index()
     {
@@ -26,7 +27,7 @@ class Tabungan extends CI_Controller
         $k1 = $this->input->post('k1');
         $k2 = $this->input->post('k2');
         $data = $this->Model_tabungan->cetaktabungand($k1, $k2);
-       
+
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()->setCreator('SIT')
             ->setLastModifiedBy('SIT')
@@ -38,19 +39,19 @@ class Tabungan extends CI_Controller
 
         $spreadsheet->setActiveSheetIndex(0);
         $spreadsheet->getActiveSheet()
-    
+
             ->setCellValue('A1', 'NO')
             ->setCellValue('B1', 'PERIODE')
             ->setCellValue('C1', 'WAKTU')
             ->setCellValue('D1', 'NAMA')
-            ->setCellValue('E1', 'JENISANGGOTA')
+            ->setCellValue('E1', 'KELAS')
             ->setCellValue('F1', 'DEBIT')
             ->setCellValue('G1', 'CREDIT')
-            ->setCellValue('H1', 'KETERANGAN');
+            ->setCellValue('H1', 'KEANGOTAAN');
 
-            if($data){
-                $i = 2;
-                foreach ($data as $r) {
+        if ($data) {
+            $i = 2;
+            foreach ($data as $r) {
                 if ($r->jumlah_nabung == 0) {
                     $debet = "";
                 } else {
@@ -61,23 +62,23 @@ class Tabungan extends CI_Controller
                 } else {
                     $kredit = number_format($r->jumlah_ambil, 0, ",", ".");
                 }
-                    $spreadsheet->getActiveSheet()
-                        ->setCellValue('A' . $i, $i - 1)
-                        ->setCellValue('B' . $i, $r->tahun_akademik)
-                        ->setCellValue('C' . $i, substr($r->waktu, 0, 10))
-                        ->setCellValue('D' . $i, $r->nama)
-                        ->setCellValue('E' . $i, $r->level)
-                        ->setCellValue('F' . $i, $kredit)
-                        ->setCellValue('G' . $i, $debet)
-                        ->setCellvalue('H' . $i, $r->keterangan);
-                        
-                    $i++;
-                }
+                $spreadsheet->getActiveSheet()
+                    ->setCellValue('A' . $i, $i - 1)
+                    ->setCellValue('B' . $i, $r->tahun_akademik)
+                    ->setCellValue('C' . $i, substr($r->waktu, 0, 10))
+                    ->setCellValue('D' . $i, $r->nama)
+                    ->setCellValue('E' . $i, $r->kelas)
+                    ->setCellValue('F' . $i, $kredit)
+                    ->setCellValue('G' . $i, $debet)
+                    ->setCellvalue('H' . $i, $r->level);
+
+                $i++;
             }
-        $spreadsheet->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+        }
+        $spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
         $spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
 
-        ob_clean();
+        // ob_clean();
         $writer = new Xlsx($spreadsheet);
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -142,7 +143,9 @@ class Tabungan extends CI_Controller
     public function edit($id_tabungan)
     {
         $where = array('id_tabungan' => $id_tabungan);
+       
         $data['datas'] = $this->Model_tabungan->tampiledittabungan($where);
+       
         $data['title'] = ' | Edit Data tabungan ';
         $this->load->view('templates/backend/header', $data);
         $this->load->view('templates/backend/sidebar');

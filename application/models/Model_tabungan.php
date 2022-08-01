@@ -1,4 +1,5 @@
- <?php class Model_tabungan extends CI_Model
+<?php 
+ class Model_tabungan extends CI_Model
     {
         public function tampil()
         {
@@ -14,6 +15,7 @@
         {
             $this->db->select('*, tb_users.nama, tb_periode.tahun_akademik');
             $this->db->join('tb_users', 'tb_users.id_user = tb_tabungan.id_user', 'left');
+            $this->db->join('tb_kelas','tb_kelas.id_kelas = tb_users.id_kelas', 'left');
             $this->db->join('tb_periode', 'tb_periode.id_periode = tb_tabungan.id_periode', 'left');
             $this->db->where('tb_tabungan.waktu >=', $p1 . ' ' . '00:00:00');
             $this->db->where('tb_tabungan.waktu <=', $p2 . ' ' . '23:59:59');
@@ -55,12 +57,15 @@
         public function tampiledittabungan($where)
         {
             $this->db->where($where);
+           
             return $this->db->get('tb_tabungan', $where)->result();
         }
         public function updatetabungan($where)
         {
             $time = date('H:i:s');
-            $data = array('id_user' => $this->input->post('id_user'), 'id_periode' => $this->input->post('id_periode'), 'jumlah_nabung' => $this->input->post('jumlah_nabung'), 'waktu' => $this->input->post('waktu') . ' ' . $time, 'keterangan' => $this->input->post('keterangan'));
+            $data = array('id_user' => $this->input->post('id_user'), 'id_periode' => $this->input->post('id_periode'), 'jumlah_nabung' => $this->input->post('jumlah_nabung'), 
+            'jumlah_ambil' =>$this->input->post('jumlah_ambil'),
+            'waktu' => $this->input->post('waktu') . ' ' . $time, 'keterangan' => $this->input->post('keterangan'));
             $this->db->where($where);
             $this->db->update('tb_tabungan', $data);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success">Berhasil Perbarui Data.!</div>');

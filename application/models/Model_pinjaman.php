@@ -1,4 +1,5 @@
- <?php class Model_pinjaman extends CI_Model
+<?php
+class Model_pinjaman extends CI_Model
     {
         public function tampil()
         {
@@ -12,6 +13,7 @@
         {
             $this->db->select('*, tb_users.nama');
             $this->db->join('tb_users', 'tb_users.id_user = tb_pinjaman.id_user', 'left');
+            $this->db->join('tb_kelas','tb_kelas.id_kelas = tb_users.id_kelas', 'left');
             $this->db->where('tb_pinjaman.waktu >=', $p1);
             $this->db->where('tb_pinjaman.waktu <=', $p2);
             return $this->db->get('tb_pinjaman')->result();

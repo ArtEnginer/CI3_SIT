@@ -51,7 +51,7 @@
   <?php echo form_open('Login', 'class="form-signin"'); ?>
   <!-- <img class="mb-4" src="<?php //echo base_url('assets/arc/img/7.jpg'); 
                               ?>" alt="" width="72" height="72"> -->
-  <h1 class="h3 mb-3 font-weight-normal"><img style="border-radius: 50px;" src="<?php echo base_url('assets/arc/img/logo.png') ?>" width="100" height="auto"></h1>
+  <h1 class="h3 mb-3 font-weight-normal"><img style="border-radius: 50px;" src="<?php echo base_url('assets/arc/img/logo.png') ?>" width="200" height="auto"></h1>
   <!-- <h4>SELAMAT DATANG <br> SILAHKAN KETIKAN USERNAME DAN PASSWORD ANDA</h4> -->
 
   <?php echo $this->session->flashdata('pesan'); ?>
@@ -69,9 +69,10 @@
   <br>
   <!-- <a style="color: black;" class="small" href="<?php echo base_url('beranda'); ?>">Beranda!</a><br> -->
   <a style="color: black;" class="small" href="<?php echo base_url('Login/registrasiakun'); ?>">Registrasi Akun?</a>
-  <p class="mt-5 mb-3 text-muted"><b style="color: black;">BANK CEMERLAN <br> @ <?php echo date('Y'); ?></b></p>
+  <div class="mt-4 mb-3 text-muted">
+    <small><b style="color: black;">SMKS KERABAT KITA BUMIAYU@<?php echo date('Y'); ?></small>
 
-
+  </div>
 
   <?php echo form_close(); ?>
 
