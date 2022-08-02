@@ -18,7 +18,7 @@ class Excelpinjaman extends CI_Controller
         $this->db->select('*');
         $this->db->join('tb_kelas', 'tb_kelas.id_kelas = tb_users.id_kelas', 'left');
         $identitas = $this->db->get('tb_users')->result();
-       
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $style_col = ['font' => ['bold' => true], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER], 'borders' => ['top' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN], 'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN], 'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN], 'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
@@ -38,17 +38,17 @@ class Excelpinjaman extends CI_Controller
         $sheet->getStyle('A1')->applyFromArray($headerstyle);
         $subheaderstyle = ['font' => ['bold' => false, 'size' => 10, 'name' => 'Arial'],];
         $periodestyle = ['font' => ['bold' => false, 'size' => 9, 'name' => 'Arial'], 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,],];
-        $sheet->setCellValue('A3', "NAMA")->getStyle('A3')->applyFromArray($subheaderstyle);
-        $sheet->setCellValue('A4', "NO. TELEPON")->getStyle('A4')->applyFromArray($subheaderstyle);
-        $sheet->setCellValue('A5', "NO. REKENING")->getStyle('A5')->applyFromArray($subheaderstyle);
-        $sheet->setCellValue('A6', "ALAMAT")->getStyle('A6')->applyFromArray($subheaderstyle);
-        $sheet->setCellValue('E6', "Kelas")->getStyle('E6')->applyFromArray($subheaderstyle);
         foreach ($identitas as $row) {
+            $sheet->setCellValue('A3', "NAMA")->getStyle('A3')->applyFromArray($subheaderstyle);
+            $sheet->setCellValue('A4', "NO. TELEPON")->getStyle('A4')->applyFromArray($subheaderstyle);
+            $sheet->setCellValue('A5', "NO. REKENING")->getStyle('A5')->applyFromArray($subheaderstyle);
+            $sheet->setCellValue('A6', "ALAMAT")->getStyle('A6')->applyFromArray($subheaderstyle);
+            $row->level == 'guru' ? '' : $sheet->setCellValue('E6', "Kelas")->getStyle('E6')->applyFromArray($subheaderstyle);
             $sheet->setCellValue('C3', ": " . $row->nama)->getStyle('A3')->applyFromArray($subheaderstyle);
             $sheet->setCellValue('C4', ": " . $row->telepon)->getStyle('A4')->applyFromArray($subheaderstyle);
             $sheet->setCellValue('C5', ": " . $row->norek)->getStyle('A5')->applyFromArray($subheaderstyle);
             $sheet->setCellValue('C6', ": " . $row->alamat)->getStyle('A6')->applyFromArray($subheaderstyle);
-            $sheet->setCellValue('F6', ": " . $row->kelas)->getStyle('E6')->applyFromArray($subheaderstyle);
+            $row->level == 'guru' ? '' : $sheet->setCellValue('F6', ": " . $row->kelas)->getStyle('E6')->applyFromArray($subheaderstyle);
         }
         $sheet->mergeCells('A7:F7');
         // $sheet->setCellValue('A7', "Periode : " . substr($k3, 0, 10) . ' s.d. ' . substr($k4, 0, 10))->getStyle('A7')->applyFromArray($periodestyle);

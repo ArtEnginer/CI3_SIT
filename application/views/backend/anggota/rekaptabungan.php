@@ -12,6 +12,7 @@ $pdf->setFont('Arial', "", "10");
 $pdf->SetTextColor(0, 0, 0);
 $ses = $this->session->userdata('id_user');
 $this->db->where(['id_user' => $ses]);
+$this->db->join('tb_kelas', 'tb_kelas.id_kelas = tb_users.id_kelas');
 $tabungan = $this->db->get('tb_users')->result();
 foreach ($tabungan as $row) {
     $pdf->Cell(1);
@@ -24,6 +25,8 @@ foreach ($tabungan as $row) {
     $pdf->Row_noborder(array(array("No. Rekening"), array(":"), array($row->norek)), 4);
     $pdf->Cell(1);
     $pdf->Row_noborder(array(array("Alamat"), array(":"), array($row->alamat)), 4);
+    $pdf->Cell(1);
+    $pdf->Row_noborder(array(array("Kelas"), array(":"), array($row->kelas)), 4);
 }
 $pdf->Ln(8);
 $pdf->SetWidths(array(10, 20, 40, 25, 25, 25));

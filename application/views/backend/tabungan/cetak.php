@@ -7,10 +7,10 @@
                 <th style="font-size:12px">PERIODE</th>
                 <th style="font-size:12px">WAKTU</th>
                 <th style="font-size:12px">NAMA</th>
+                <th style="font-size:12px">KELAS</th>
                 <th style="font-size:12px">JENIS ANGGOTA</th>
                 <th style="font-size:12px">DEBET</th>
                 <th style="font-size:12px">KREDIT</th>
-                <th style="font-size:12px">KETERANGAN</th>
             </tr>
         </thead>
         <tbody><?php $i = 1;
@@ -29,10 +29,10 @@
                     <td style="font-size:12px"><?php echo $r->tahun_akademik; ?></td>
                     <td style="font-size:12px"><?php echo substr($r->waktu, 0, 10); ?></td>
                     <td style="font-size:12px"><?php echo $r->nama; ?></td>
+                    <td style="font-size:12px"><?php echo $r->kelas; ?></td>
                     <td style="font-size:12px"><?php echo $r->level; ?></td>
                     <td style="font-size:12px" class="text-right"><?php echo $debet; ?></td>
                     <td style="font-size:12px" class="text-right"><?php echo $kredit; ?></td>
-                    <td style="font-size:12px"><?php echo $r->keterangan; ?></td>
                 </tr><?php $i++;
                     } ?></tbody>
     </table>

@@ -3,7 +3,11 @@
                 <div class="active fade show tab-pane tabs-animation" id="tab-content-0" role="tabpanel">
                     <div class="card main-card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Form Edit Data Tabungan Siswa</h5><?= $this->session->flashdata('pesan') ?><?php echo form_open('tabungan/update_tabungan/' . $r->id_tabungan); ?><div class="form-row">
+                            <h5 class="card-title">Form Edit Data Tabungan Siswa</h5><?= $this->session->flashdata('pesan') ?><?php echo form_open('tabungan/update_t
+                            
+                            
+                            
+                            abungan/' . $r->id_tabungan); ?><div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group position-relative"><label for="exampleIdJurusan">PERIODE</label> <select class="form-control" name="id_periode" disabled>
                                             <option>-- PILIH PERIODE --</option><?php $id_periode = $this->db->get('tb_periode')->result(); ?><?php foreach ($id_periode as $pe) : if ($pe->id_periode == $r->id_periode) {

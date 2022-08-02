@@ -6,10 +6,10 @@
                 <th style="font-size:12px">NO</th>
                 <th style="font-size:12px">WAKTU</th>
                 <th style="font-size:12px">NAMA</th>
-                <th style="font-size:12px">KETERANGAN ANGGOTA</th>
+                <th style="font-size:12px">KELAS</th>
+                <th style="font-size:12px">KEANGGOTAAN</th>
                 <th style="font-size:12px">JUMLAH PINJAM</th>
                 <th style="font-size:12px">JUMLAH BAYAR</th>
-                <th style="font-size:12px">KETERANGAN</th>
             </tr>
         </thead>
         <tbody><?php $i = 1;
@@ -24,10 +24,10 @@
                     <td style="font-size:12px"><?php echo $i; ?></td>
                     <td style="font-size:12px"><?php echo substr($r->waktu, 0, 10); ?></td>
                     <td style="font-size:12px"><?php echo $r->nama; ?></td>
+                    <td style="font-size:12px"><?php echo $r->kelas; ?></td>
                     <td style="font-size:12px"><?php echo $r->level; ?></td>
                     <td style="font-size:12px" class="text-right"><?php echo $pinjam; ?></td>
                     <td style="font-size:12px" class="text-right"><?php echo $bayar; ?></td>
-                    <td style="font-size:12px"><?php echo $r->keterangan; ?></td>
                 </tr><?php $i++;
                     } ?></tbody>
     </table>
